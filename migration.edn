@@ -1,0 +1,4 @@
+{:schema "etzhayyim.migration/v1"
+ :source {:repository "etzhayyim/root" :revision "c3a74d20d7c65c0b63851fc4f8964402a4733e76" :path "60-apps/etzhayyim-project-nist" :tree "faf66d8efdb94a8f5c3f9ad0be4bb9f93172884a" :tracked-files 13 :bytes 82041}
+ :destination {:repository "etzhayyim/com-etzhayyim-app-nist"}
+ :identity {:allowed-additions ["README.edn" "migration.edn"]}}

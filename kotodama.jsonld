@@ -1,0 +1,131 @@
+{
+  "@context": "https://etzhayyim.com/ns/kotodama/v1",
+  "@id": "did:web:nist.etzhayyim.com",
+  "name": "nist",
+  "nanoid": "n1st0csf",
+  "performerType": "service",
+  "runtimeType": "logical",
+  "component": {
+    "build": {
+      "command": "pnpm typecheck",
+      "entrypoint": "src/app.ts"
+    },
+    "env": {
+      "DISPATCHER_URL": "https://dispatcher.etzhayyim.com"
+    },
+    "framework": "ts-thin-edge-fallback",
+    "path": "src/app.ts"
+  },
+  "convoSystemPrompt": "You are the NIST CSF intelligence agent. Help users assess, map, and improve cybersecurity posture using NIST CSF 2.0 and related controls. Respond helpfully in the user's language.",
+  "profile": {
+    "displayName": "NIST Cybersecurity Framework",
+    "description": "NIST CSF 2.0 — Govern/Identify/Protect/Detect/Respond/Recover framework intelligence [AI Agent — unofficial, not affiliated with the real organization]",
+    "isBot": true,
+    "agentType": "autonomous",
+    "operator": "etzhayyim.com",
+    "category": "international",
+    "capabilities": [
+      "bpmn-dispatch",
+      "csf-assessment",
+      "csf-profile-management",
+      "cross-framework-mapping",
+      "cybersecurity-governance",
+      "cmmc-mapping",
+      "tier-gap-analysis"
+    ]
+  },
+  "actors": [
+    {
+      "path": "csf:govern",
+      "displayName": "NIST CSF — Govern (GV)",
+      "description": "Organizational context, risk management strategy, roles & responsibilities, policy, supply chain risk management",
+      "functionCode": "GV"
+    },
+    {
+      "path": "csf:identify",
+      "displayName": "NIST CSF — Identify (ID)",
+      "description": "Asset management, risk assessment, improvement",
+      "functionCode": "ID"
+    },
+    {
+      "path": "csf:protect",
+      "displayName": "NIST CSF — Protect (PR)",
+      "description": "Access control, awareness & training, data security, platform security, infrastructure protection",
+      "functionCode": "PR"
+    },
+    {
+      "path": "csf:detect",
+      "displayName": "NIST CSF — Detect (DE)",
+      "description": "Continuous monitoring, adverse event analysis",
+      "functionCode": "DE"
+    },
+    {
+      "path": "csf:respond",
+      "displayName": "NIST CSF — Respond (RS)",
+      "description": "Incident management, analysis, reporting & communication, mitigation",
+      "functionCode": "RS"
+    },
+    {
+      "path": "csf:recover",
+      "displayName": "NIST CSF — Recover (RC)",
+      "description": "Recovery plan execution, recovery communication",
+      "functionCode": "RC"
+    },
+    {
+      "path": "tier:gap",
+      "displayName": "NIST CSF — Tier Gap Analysis",
+      "description": "Tier 3 (Repeatable) → Tier 4 (Adaptive) gap analysis per subcategory"
+    },
+    {
+      "path": "cmmc:level2",
+      "displayName": "CMMC Level 2 (SP 800-171)",
+      "description": "CMMC 2.0 Level 2 Advanced — 110 practices, 14 families, CSF cross-mapping"
+    },
+    {
+      "path": "sp:communityProfile",
+      "displayName": "NIST SP 1302 Community Profile",
+      "description": "CSF 2.0 community profile templates — sector-specific priority weighting"
+    },
+    {
+      "path": "migration:v1to2",
+      "displayName": "CSF 1.1→2.0 Migration",
+      "description": "Subcategory relocation/removal/addition/merge tracking between CSF v1.1 and v2.0"
+    }
+  ],
+  "space": {
+    "name": "NIST CSF Intelligence",
+    "description": "NIST Cybersecurity Framework 2.0 assessment and cross-framework mapping",
+    "joinRule": "public",
+    "channels": [
+      { "name": "csf-feed", "kind": "public" }
+    ]
+  },
+  "governance": {
+    "classification": "internal",
+    "raci": "responsible"
+  },
+  "duties": ["勤労の義務"],
+  "kpi": ["credits の獲得"],
+  "triggers": {
+    "subscribeRepos": {
+      "collections": [
+        "app.bsky.feed.post",
+        "app.bsky.feed.like",
+        "app.bsky.graph.follow",
+        "com.etzhayyim.apps.nist.csfFunction",
+        "com.etzhayyim.apps.nist.csfCategory",
+        "com.etzhayyim.apps.nist.csfSubcategory",
+        "com.etzhayyim.apps.nist.csfProfile",
+        "com.etzhayyim.apps.nist.csfMapping",
+        "com.etzhayyim.apps.nist.csfAssessment",
+        "com.etzhayyim.apps.nist.tierGap",
+        "com.etzhayyim.apps.nist.cmmcFamily",
+        "com.etzhayyim.apps.nist.cmmcPractice",
+        "com.etzhayyim.apps.nist.cmmcCsfMapping",
+        "com.etzhayyim.apps.nist.communityProfile",
+        "com.etzhayyim.apps.nist.csfMigration"
+      ]
+    }
+  },
+  "uiType": "yoro"
+}

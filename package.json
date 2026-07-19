@@ -1,0 +1,12 @@
+{
+  "name": "etzhayyim-project-nist",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "src/app.ts",
+  "scripts": {
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "typescript": "^6.0.2"
+  }
+}
