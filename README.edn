@@ -1,4 +1,4 @@
 {:schema "etzhayyim.repository/v1"
- :name "com-etzhayyim-app-nist"
+ :name "app-nist"
  :kind :app
  :canonical-metadata :edn}
