@@ -1,0 +1,17 @@
+;; app-nist — itonami（dapp）の aiueos アプリ記述子（notes.edn 形）。
+;; 判定コアは aiueos/nist_csf.cljk（CSF 2.0 コード体系の判定）。
+;; 正本は kotoba/src/types.ts。pure（:effects #{}）。
+{:aiueos/component :app/nist-csf
+ :aiueos/kind :app
+ :aiueos/trust :untrusted
+ :aiueos/source "nist_csf.cljk"
+ :aiueos/wasm "nist_csf.wasm"
+ :aiueos/entry "main"
+ :aiueos/args []
+ :aiueos/imports #{}
+ :aiueos/exports #{:app/main
+                   :app/csf-code-ok
+                   :app/csf-level
+                   :app/parent-kind}
+ :aiueos/effects #{}
+ :aiueos/limits {:memory-pages 16 :fuel 5000000}}
