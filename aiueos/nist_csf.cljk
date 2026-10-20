@@ -1,0 +1,63 @@
+(ns nist.csf
+  "NIST CSF コード判定コア — itonami dapp bundle（pure, :effects #{}）。
+
+  NIST CSF 2.0 のコード体系の判定（正本: kotoba/src/types.ts）:
+
+  - **6 Function の閉じた集合**: GV / ID / PR / DE / RS / RC。
+  - **コードの形は 3 段**: function = 2 大文字 / category =
+    2 大文字.2 大文字 / subcategory = 2 大文字.2 大文字-2 桁。
+  - **親の決まり**: function に親は無い / category の親は function /
+    subcategory の親は category（ハイフン前まで）。
+
+  csf-code-ok: 1 = fn-code（0 GV / 1 ID / 2 PR / 3 DE / 4 RS / 5 RC）が
+    閉じた集合内かつ form-code（0 function / 1 category / 2 subcategory）
+    の形が正当
+  csf-level: form-code をそのまま返す（0/1/2 = 階層の深さ）
+  parent-kind: function は親無し(0) / category の親は function(1)
+    / subcategory の親は category(2) —— 返り値は親の form-code、親無しは -1
+
+  実行 host はスカラーのみ = KIR v3 / i64/direct ABI（kernel/selfhost 両対応）。
+
+  テストはゼロ引数 test-*、戻り 1/0:
+  <amu> test aiueos/nist_csf.cljk"
+  (:export [main csf-code-ok csf-level parent-kind
+            test-code test-fn test-form test-level test-parent test-fail-closed]))
+
+(defn main [] :i64
+  0)
+
+(defn csf-code-ok [fn-code :i64 form-code :i64] :i64
+  (if (and (>= fn-code 0) (<= fn-code 5) (>= form-code 0) (<= form-code 2)) 1 0))
+
+(defn csf-level [form-code :i64] :i64
+  form-code)
+
+(defn parent-kind [form-code :i64] :i64
+  ;; 返りは親の form-code。function に親は無い
+  (if (= form-code 0)
+    -1
+    (if (= form-code 1) 0 2)))
+
+;; --- tests（戻り 1 = pass） ------------------------------------------------
+
+(defn test-code [] :i64
+  (if (= (+ (csf-code-ok 0 0) (csf-code-ok 5 2)) 2) 1 0))
+
+(defn test-fn [] :i64
+  ;; 6 Function の閉じた集合（GV ID PR DE RS RC）
+  (if (= (+ (csf-code-ok 6 0) (csf-code-ok -1 1) (csf-code-ok 3 1)) 1) 1 0))
+
+(defn test-form [] :i64
+  ;; 3 段の形（function / category / subcategory）
+  (if (= (+ (csf-code-ok 2 0) (csf-code-ok 2 3)) 1) 1 0))
+
+(defn test-level [] :i64
+  (if (= (+ (csf-level 0) (csf-level 1) (csf-level 2)) 3) 1 0))
+
+(defn test-parent [] :i64
+  ;; function 親無し(-1) / category の親は function(0) / subcategory の親は category(2)
+  (if (= (+ (parent-kind 0) (parent-kind 1) (parent-kind 2)) 1) 1 0))
+
+(defn test-fail-closed [] :i64
+  ;; 集合外の function・形は拒否
+  (if (= (+ (csf-code-ok 9 9) (csf-code-ok 0 9)) 0) 1 0))
